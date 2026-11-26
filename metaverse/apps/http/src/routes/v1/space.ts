@@ -5,7 +5,7 @@ import {
     DeleteElementSchema,
 } from "../../types/index.js";
 import prisma from "../../../../../packages/db/dist/index.js";
-import { userMiddleware } from "./user.js";
+import { userMiddleware } from "../../middleware/user.js";
 
 export const spaceRouter = Router();
 
@@ -127,8 +127,9 @@ spaceRouter.delete("/element", userMiddleware, async (req, res) => {
 });
 
 spaceRouter.get("/:spaceId", userMiddleware, async (req, res) => {
+    const spaceId = req.params.spaceId as string;
     const space = await prisma.space.findUnique({
-        where: { id: req.params.spaceId },
+        where: { id: spaceId },
         include: { elements: { include: { element: true } } },
     });
     if (!space) {
@@ -153,8 +154,9 @@ spaceRouter.get("/:spaceId", userMiddleware, async (req, res) => {
 });
 
 spaceRouter.delete("/:spaceId", userMiddleware, async (req, res) => {
+    const spaceId = req.params.spaceId as string;
     const space = await prisma.space.findUnique({
-        where: { id: req.params.spaceId },
+        where: { id: spaceId },
     });
     if (!space) {
         return res.status(400).json({ message: "Space not found" });

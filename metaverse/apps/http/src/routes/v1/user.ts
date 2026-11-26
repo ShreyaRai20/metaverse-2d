@@ -1,19 +1,52 @@
-import jwt from "jsonwebtoken";
-import type { Request, Response, NextFunction } from "express";
-import { JWT_SECRET } from "../../config.js";
+import { Router } from "express";
+import { UpdateMetadataSchema } from "../../types/index.js";
+import { userMiddleware } from "../../middleware/user.js";
+import prisma from "../../../../../packages/db/dist/index.js";
 
-export const userMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) {
-        return res.status(403).json({ message: "Unauthorized" });
+export const userRouter = Router();
+
+userRouter.post("/metadata", userMiddleware, async (req, res) => {
+    const parsedData = UpdateMetadataSchema.safeParse(req.body);
+    if (!parsedData.success) {
+        return res.status(400).json({ message: "Validation failed" });
     }
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET) as { userId: string; role: string };
-        res.locals.userId = decoded.userId;
-        res.locals.role = decoded.role;
-        next();
+        const avatar = await prisma.avatar.findUnique({
+            where: { id: parsedData.data.avatarId },
+        });
+        if (!avatar) {
+            return res.status(400).json({ message: "Avatar not found" });
+        }
+
+        await prisma.user.update({
+            where: { id: res.locals.userId },
+            data: { avatarId: parsedData.data.avatarId },
+        });
+        return res.json({ message: "Metadata updated" });
     } catch (error) {
-        return res.status(403).json({ message: "Unauthorized" });
+        return res.status(400).json({ message: "Internal error" });
     }
-};
+});
+
+// GET /metadata/bulk?ids=[1,3,55]
+userRouter.get("/metadata/bulk", userMiddleware, async (req, res) => {
+    const idsString = ((req.query.ids as string) ?? "[]").trim();
+    const ids = idsString
+        .slice(1, idsString.length - 1) // strip [ ]
+        .split(",")
+        .map((id) => id.trim().replace(/["']/g, ""))
+        .filter(Boolean);
+
+    const users = await prisma.user.findMany({
+        where: { id: { in: ids } },
+        select: { id: true, avatar: true },
+    });
+
+    res.json({
+        avatars: users.map((u) => ({
+            userId: u.id,
+            imageUrl: u.avatar?.imageUrl ?? null,
+        })),
+    });
+});

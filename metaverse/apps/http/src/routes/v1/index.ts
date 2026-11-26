@@ -1,13 +1,13 @@
 import { Router } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { SignupSchema, SigninSchema } from "../../types/index.js";
-import prisma from "../../../../../packages/db/dist/index.js";
-import { userRouter } from "../../middleware/user.js";
-import { adminRouter } from "../../middleware/admin.js";
+import { userRouter } from "./user.js";
+import { adminRouter } from "./admin.js";
 import { spaceRouter } from "./space.js";
-import { userMiddleware } from "./user.js";
+import { SignupSchema, SigninSchema } from "../../types/index.js";
+import { userMiddleware } from "../../middleware/user.js";
 import { JWT_SECRET } from "../../config.js";
+import prisma from "../../../../../packages/db/dist/index.js";
 
 export const router = Router();
 
