@@ -1,6 +1,7 @@
 {
   "name": "metaverse",
   "private": true,
+  "packageManager": "npm@11.20.0",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
