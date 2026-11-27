@@ -230,6 +230,7 @@ export type SpaceWhereInput = {
   creatorId?: Prisma.StringFilter<"Space"> | string
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   elements?: Prisma.SpaceElementsListRelationFilter
+  members?: Prisma.SpaceMemberListRelationFilter
 }
 
 export type SpaceOrderByWithRelationInput = {
@@ -241,6 +242,7 @@ export type SpaceOrderByWithRelationInput = {
   creatorId?: Prisma.SortOrder
   creator?: Prisma.UserOrderByWithRelationInput
   elements?: Prisma.spaceElementsOrderByRelationAggregateInput
+  members?: Prisma.SpaceMemberOrderByRelationAggregateInput
 }
 
 export type SpaceWhereUniqueInput = Prisma.AtLeast<{
@@ -255,6 +257,7 @@ export type SpaceWhereUniqueInput = Prisma.AtLeast<{
   creatorId?: Prisma.StringFilter<"Space"> | string
   creator?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   elements?: Prisma.SpaceElementsListRelationFilter
+  members?: Prisma.SpaceMemberListRelationFilter
 }, "id">
 
 export type SpaceOrderByWithAggregationInput = {
@@ -291,6 +294,7 @@ export type SpaceCreateInput = {
   thumbnail?: string | null
   creator: Prisma.UserCreateNestedOneWithoutSpacesInput
   elements?: Prisma.spaceElementsCreateNestedManyWithoutSpaceInput
+  members?: Prisma.SpaceMemberCreateNestedManyWithoutSpaceInput
 }
 
 export type SpaceUncheckedCreateInput = {
@@ -301,6 +305,7 @@ export type SpaceUncheckedCreateInput = {
   thumbnail?: string | null
   creatorId: string
   elements?: Prisma.spaceElementsUncheckedCreateNestedManyWithoutSpaceInput
+  members?: Prisma.SpaceMemberUncheckedCreateNestedManyWithoutSpaceInput
 }
 
 export type SpaceUpdateInput = {
@@ -311,6 +316,7 @@ export type SpaceUpdateInput = {
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creator?: Prisma.UserUpdateOneRequiredWithoutSpacesNestedInput
   elements?: Prisma.spaceElementsUpdateManyWithoutSpaceNestedInput
+  members?: Prisma.SpaceMemberUpdateManyWithoutSpaceNestedInput
 }
 
 export type SpaceUncheckedUpdateInput = {
@@ -321,6 +327,7 @@ export type SpaceUncheckedUpdateInput = {
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   elements?: Prisma.spaceElementsUncheckedUpdateManyWithoutSpaceNestedInput
+  members?: Prisma.SpaceMemberUncheckedUpdateManyWithoutSpaceNestedInput
 }
 
 export type SpaceCreateManyInput = {
@@ -459,6 +466,20 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type SpaceCreateNestedOneWithoutMembersInput = {
+  create?: Prisma.XOR<Prisma.SpaceCreateWithoutMembersInput, Prisma.SpaceUncheckedCreateWithoutMembersInput>
+  connectOrCreate?: Prisma.SpaceCreateOrConnectWithoutMembersInput
+  connect?: Prisma.SpaceWhereUniqueInput
+}
+
+export type SpaceUpdateOneRequiredWithoutMembersNestedInput = {
+  create?: Prisma.XOR<Prisma.SpaceCreateWithoutMembersInput, Prisma.SpaceUncheckedCreateWithoutMembersInput>
+  connectOrCreate?: Prisma.SpaceCreateOrConnectWithoutMembersInput
+  upsert?: Prisma.SpaceUpsertWithoutMembersInput
+  connect?: Prisma.SpaceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SpaceUpdateToOneWithWhereWithoutMembersInput, Prisma.SpaceUpdateWithoutMembersInput>, Prisma.SpaceUncheckedUpdateWithoutMembersInput>
+}
+
 export type SpaceCreateNestedOneWithoutElementsInput = {
   create?: Prisma.XOR<Prisma.SpaceCreateWithoutElementsInput, Prisma.SpaceUncheckedCreateWithoutElementsInput>
   connectOrCreate?: Prisma.SpaceCreateOrConnectWithoutElementsInput
@@ -480,6 +501,7 @@ export type SpaceCreateWithoutCreatorInput = {
   height?: number | null
   thumbnail?: string | null
   elements?: Prisma.spaceElementsCreateNestedManyWithoutSpaceInput
+  members?: Prisma.SpaceMemberCreateNestedManyWithoutSpaceInput
 }
 
 export type SpaceUncheckedCreateWithoutCreatorInput = {
@@ -489,6 +511,7 @@ export type SpaceUncheckedCreateWithoutCreatorInput = {
   height?: number | null
   thumbnail?: string | null
   elements?: Prisma.spaceElementsUncheckedCreateNestedManyWithoutSpaceInput
+  members?: Prisma.SpaceMemberUncheckedCreateNestedManyWithoutSpaceInput
 }
 
 export type SpaceCreateOrConnectWithoutCreatorInput = {
@@ -529,6 +552,62 @@ export type SpaceScalarWhereInput = {
   creatorId?: Prisma.StringFilter<"Space"> | string
 }
 
+export type SpaceCreateWithoutMembersInput = {
+  id?: string
+  name: string
+  width: number
+  height?: number | null
+  thumbnail?: string | null
+  creator: Prisma.UserCreateNestedOneWithoutSpacesInput
+  elements?: Prisma.spaceElementsCreateNestedManyWithoutSpaceInput
+}
+
+export type SpaceUncheckedCreateWithoutMembersInput = {
+  id?: string
+  name: string
+  width: number
+  height?: number | null
+  thumbnail?: string | null
+  creatorId: string
+  elements?: Prisma.spaceElementsUncheckedCreateNestedManyWithoutSpaceInput
+}
+
+export type SpaceCreateOrConnectWithoutMembersInput = {
+  where: Prisma.SpaceWhereUniqueInput
+  create: Prisma.XOR<Prisma.SpaceCreateWithoutMembersInput, Prisma.SpaceUncheckedCreateWithoutMembersInput>
+}
+
+export type SpaceUpsertWithoutMembersInput = {
+  update: Prisma.XOR<Prisma.SpaceUpdateWithoutMembersInput, Prisma.SpaceUncheckedUpdateWithoutMembersInput>
+  create: Prisma.XOR<Prisma.SpaceCreateWithoutMembersInput, Prisma.SpaceUncheckedCreateWithoutMembersInput>
+  where?: Prisma.SpaceWhereInput
+}
+
+export type SpaceUpdateToOneWithWhereWithoutMembersInput = {
+  where?: Prisma.SpaceWhereInput
+  data: Prisma.XOR<Prisma.SpaceUpdateWithoutMembersInput, Prisma.SpaceUncheckedUpdateWithoutMembersInput>
+}
+
+export type SpaceUpdateWithoutMembersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  width?: Prisma.IntFieldUpdateOperationsInput | number
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creator?: Prisma.UserUpdateOneRequiredWithoutSpacesNestedInput
+  elements?: Prisma.spaceElementsUpdateManyWithoutSpaceNestedInput
+}
+
+export type SpaceUncheckedUpdateWithoutMembersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  width?: Prisma.IntFieldUpdateOperationsInput | number
+  height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  elements?: Prisma.spaceElementsUncheckedUpdateManyWithoutSpaceNestedInput
+}
+
 export type SpaceCreateWithoutElementsInput = {
   id?: string
   name: string
@@ -536,6 +615,7 @@ export type SpaceCreateWithoutElementsInput = {
   height?: number | null
   thumbnail?: string | null
   creator: Prisma.UserCreateNestedOneWithoutSpacesInput
+  members?: Prisma.SpaceMemberCreateNestedManyWithoutSpaceInput
 }
 
 export type SpaceUncheckedCreateWithoutElementsInput = {
@@ -545,6 +625,7 @@ export type SpaceUncheckedCreateWithoutElementsInput = {
   height?: number | null
   thumbnail?: string | null
   creatorId: string
+  members?: Prisma.SpaceMemberUncheckedCreateNestedManyWithoutSpaceInput
 }
 
 export type SpaceCreateOrConnectWithoutElementsInput = {
@@ -570,6 +651,7 @@ export type SpaceUpdateWithoutElementsInput = {
   height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creator?: Prisma.UserUpdateOneRequiredWithoutSpacesNestedInput
+  members?: Prisma.SpaceMemberUpdateManyWithoutSpaceNestedInput
 }
 
 export type SpaceUncheckedUpdateWithoutElementsInput = {
@@ -579,6 +661,7 @@ export type SpaceUncheckedUpdateWithoutElementsInput = {
   height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  members?: Prisma.SpaceMemberUncheckedUpdateManyWithoutSpaceNestedInput
 }
 
 export type SpaceCreateManyCreatorInput = {
@@ -596,6 +679,7 @@ export type SpaceUpdateWithoutCreatorInput = {
   height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   elements?: Prisma.spaceElementsUpdateManyWithoutSpaceNestedInput
+  members?: Prisma.SpaceMemberUpdateManyWithoutSpaceNestedInput
 }
 
 export type SpaceUncheckedUpdateWithoutCreatorInput = {
@@ -605,6 +689,7 @@ export type SpaceUncheckedUpdateWithoutCreatorInput = {
   height?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   thumbnail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   elements?: Prisma.spaceElementsUncheckedUpdateManyWithoutSpaceNestedInput
+  members?: Prisma.SpaceMemberUncheckedUpdateManyWithoutSpaceNestedInput
 }
 
 export type SpaceUncheckedUpdateManyWithoutCreatorInput = {
@@ -622,10 +707,12 @@ export type SpaceUncheckedUpdateManyWithoutCreatorInput = {
 
 export type SpaceCountOutputType = {
   elements: number
+  members: number
 }
 
 export type SpaceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   elements?: boolean | SpaceCountOutputTypeCountElementsArgs
+  members?: boolean | SpaceCountOutputTypeCountMembersArgs
 }
 
 /**
@@ -645,6 +732,13 @@ export type SpaceCountOutputTypeCountElementsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.spaceElementsWhereInput
 }
 
+/**
+ * SpaceCountOutputType without action
+ */
+export type SpaceCountOutputTypeCountMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SpaceMemberWhereInput
+}
+
 
 export type SpaceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -655,6 +749,7 @@ export type SpaceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   creatorId?: boolean
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   elements?: boolean | Prisma.Space$elementsArgs<ExtArgs>
+  members?: boolean | Prisma.Space$membersArgs<ExtArgs>
   _count?: boolean | Prisma.SpaceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["space"]>
 
@@ -691,6 +786,7 @@ export type SpaceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
 export type SpaceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   creator?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   elements?: boolean | Prisma.Space$elementsArgs<ExtArgs>
+  members?: boolean | Prisma.Space$membersArgs<ExtArgs>
   _count?: boolean | Prisma.SpaceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SpaceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -705,6 +801,7 @@ export type $SpacePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     creator: Prisma.$UserPayload<ExtArgs>
     elements: Prisma.$spaceElementsPayload<ExtArgs>[]
+    members: Prisma.$SpaceMemberPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1109,6 +1206,7 @@ export interface Prisma__SpaceClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   creator<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   elements<T extends Prisma.Space$elementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Space$elementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$spaceElementsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  members<T extends Prisma.Space$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Space$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SpaceMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1566,6 +1664,30 @@ export type Space$elementsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.SpaceElementsScalarFieldEnum | Prisma.SpaceElementsScalarFieldEnum[]
+}
+
+/**
+ * Space.members
+ */
+export type Space$membersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SpaceMember
+   */
+  select?: Prisma.SpaceMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SpaceMember
+   */
+  omit?: Prisma.SpaceMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpaceMemberInclude<ExtArgs> | null
+  where?: Prisma.SpaceMemberWhereInput
+  orderBy?: Prisma.SpaceMemberOrderByWithRelationInput | Prisma.SpaceMemberOrderByWithRelationInput[]
+  cursor?: Prisma.SpaceMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SpaceMemberScalarFieldEnum | Prisma.SpaceMemberScalarFieldEnum[]
 }
 
 /**

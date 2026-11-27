@@ -52,6 +52,11 @@ export type User = Prisma.UserModel
  */
 export type Space = Prisma.SpaceModel
 /**
+ * Model SpaceMember
+ * 
+ */
+export type SpaceMember = Prisma.SpaceMemberModel
+/**
  * Model spaceElements
  * 
  */

@@ -191,6 +191,7 @@ export type UserWhereInput = {
   avatarId?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumroleFilter<"User"> | $Enums.role
   spaces?: Prisma.SpaceListRelationFilter
+  memberships?: Prisma.SpaceMemberListRelationFilter
   avatar?: Prisma.XOR<Prisma.AvatarNullableScalarRelationFilter, Prisma.AvatarWhereInput> | null
 }
 
@@ -202,6 +203,7 @@ export type UserOrderByWithRelationInput = {
   avatarId?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   spaces?: Prisma.SpaceOrderByRelationAggregateInput
+  memberships?: Prisma.SpaceMemberOrderByRelationAggregateInput
   avatar?: Prisma.AvatarOrderByWithRelationInput
 }
 
@@ -216,6 +218,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   avatarId?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumroleFilter<"User"> | $Enums.role
   spaces?: Prisma.SpaceListRelationFilter
+  memberships?: Prisma.SpaceMemberListRelationFilter
   avatar?: Prisma.XOR<Prisma.AvatarNullableScalarRelationFilter, Prisma.AvatarWhereInput> | null
 }, "id" | "username" | "email">
 
@@ -250,6 +253,7 @@ export type UserCreateInput = {
   password: string
   role: $Enums.role
   spaces?: Prisma.SpaceCreateNestedManyWithoutCreatorInput
+  memberships?: Prisma.SpaceMemberCreateNestedManyWithoutUserInput
   avatar?: Prisma.AvatarCreateNestedOneWithoutUsersInput
 }
 
@@ -261,6 +265,7 @@ export type UserUncheckedCreateInput = {
   avatarId?: string | null
   role: $Enums.role
   spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutCreatorInput
+  memberships?: Prisma.SpaceMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -270,6 +275,7 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumroleFieldUpdateOperationsInput | $Enums.role
   spaces?: Prisma.SpaceUpdateManyWithoutCreatorNestedInput
+  memberships?: Prisma.SpaceMemberUpdateManyWithoutUserNestedInput
   avatar?: Prisma.AvatarUpdateOneWithoutUsersNestedInput
 }
 
@@ -281,6 +287,7 @@ export type UserUncheckedUpdateInput = {
   avatarId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumroleFieldUpdateOperationsInput | $Enums.role
   spaces?: Prisma.SpaceUncheckedUpdateManyWithoutCreatorNestedInput
+  memberships?: Prisma.SpaceMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -377,6 +384,20 @@ export type UserUpdateOneRequiredWithoutSpacesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSpacesInput, Prisma.UserUpdateWithoutSpacesInput>, Prisma.UserUncheckedUpdateWithoutSpacesInput>
 }
 
+export type UserCreateNestedOneWithoutMembershipsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMembershipsInput, Prisma.UserUncheckedCreateWithoutMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutMembershipsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutMembershipsInput, Prisma.UserUncheckedCreateWithoutMembershipsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutMembershipsInput
+  upsert?: Prisma.UserUpsertWithoutMembershipsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutMembershipsInput, Prisma.UserUpdateWithoutMembershipsInput>, Prisma.UserUncheckedUpdateWithoutMembershipsInput>
+}
+
 export type UserCreateNestedManyWithoutAvatarInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutAvatarInput, Prisma.UserUncheckedCreateWithoutAvatarInput> | Prisma.UserCreateWithoutAvatarInput[] | Prisma.UserUncheckedCreateWithoutAvatarInput[]
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutAvatarInput | Prisma.UserCreateOrConnectWithoutAvatarInput[]
@@ -425,6 +446,7 @@ export type UserCreateWithoutSpacesInput = {
   email: string
   password: string
   role: $Enums.role
+  memberships?: Prisma.SpaceMemberCreateNestedManyWithoutUserInput
   avatar?: Prisma.AvatarCreateNestedOneWithoutUsersInput
 }
 
@@ -435,6 +457,7 @@ export type UserUncheckedCreateWithoutSpacesInput = {
   password: string
   avatarId?: string | null
   role: $Enums.role
+  memberships?: Prisma.SpaceMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSpacesInput = {
@@ -459,6 +482,7 @@ export type UserUpdateWithoutSpacesInput = {
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumroleFieldUpdateOperationsInput | $Enums.role
+  memberships?: Prisma.SpaceMemberUpdateManyWithoutUserNestedInput
   avatar?: Prisma.AvatarUpdateOneWithoutUsersNestedInput
 }
 
@@ -469,6 +493,63 @@ export type UserUncheckedUpdateWithoutSpacesInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   avatarId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumroleFieldUpdateOperationsInput | $Enums.role
+  memberships?: Prisma.SpaceMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutMembershipsInput = {
+  id?: string
+  username: string
+  email: string
+  password: string
+  role: $Enums.role
+  spaces?: Prisma.SpaceCreateNestedManyWithoutCreatorInput
+  avatar?: Prisma.AvatarCreateNestedOneWithoutUsersInput
+}
+
+export type UserUncheckedCreateWithoutMembershipsInput = {
+  id?: string
+  username: string
+  email: string
+  password: string
+  avatarId?: string | null
+  role: $Enums.role
+  spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutCreatorInput
+}
+
+export type UserCreateOrConnectWithoutMembershipsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutMembershipsInput, Prisma.UserUncheckedCreateWithoutMembershipsInput>
+}
+
+export type UserUpsertWithoutMembershipsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutMembershipsInput, Prisma.UserUncheckedUpdateWithoutMembershipsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutMembershipsInput, Prisma.UserUncheckedCreateWithoutMembershipsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutMembershipsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutMembershipsInput, Prisma.UserUncheckedUpdateWithoutMembershipsInput>
+}
+
+export type UserUpdateWithoutMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumroleFieldUpdateOperationsInput | $Enums.role
+  spaces?: Prisma.SpaceUpdateManyWithoutCreatorNestedInput
+  avatar?: Prisma.AvatarUpdateOneWithoutUsersNestedInput
+}
+
+export type UserUncheckedUpdateWithoutMembershipsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  avatarId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumroleFieldUpdateOperationsInput | $Enums.role
+  spaces?: Prisma.SpaceUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type UserCreateWithoutAvatarInput = {
@@ -478,6 +559,7 @@ export type UserCreateWithoutAvatarInput = {
   password: string
   role: $Enums.role
   spaces?: Prisma.SpaceCreateNestedManyWithoutCreatorInput
+  memberships?: Prisma.SpaceMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAvatarInput = {
@@ -487,6 +569,7 @@ export type UserUncheckedCreateWithoutAvatarInput = {
   password: string
   role: $Enums.role
   spaces?: Prisma.SpaceUncheckedCreateNestedManyWithoutCreatorInput
+  memberships?: Prisma.SpaceMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAvatarInput = {
@@ -542,6 +625,7 @@ export type UserUpdateWithoutAvatarInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumroleFieldUpdateOperationsInput | $Enums.role
   spaces?: Prisma.SpaceUpdateManyWithoutCreatorNestedInput
+  memberships?: Prisma.SpaceMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAvatarInput = {
@@ -551,6 +635,7 @@ export type UserUncheckedUpdateWithoutAvatarInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumroleFieldUpdateOperationsInput | $Enums.role
   spaces?: Prisma.SpaceUncheckedUpdateManyWithoutCreatorNestedInput
+  memberships?: Prisma.SpaceMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutAvatarInput = {
@@ -568,10 +653,12 @@ export type UserUncheckedUpdateManyWithoutAvatarInput = {
 
 export type UserCountOutputType = {
   spaces: number
+  memberships: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   spaces?: boolean | UserCountOutputTypeCountSpacesArgs
+  memberships?: boolean | UserCountOutputTypeCountMembershipsArgs
 }
 
 /**
@@ -591,6 +678,13 @@ export type UserCountOutputTypeCountSpacesArgs<ExtArgs extends runtime.Types.Ext
   where?: Prisma.SpaceWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountMembershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SpaceMemberWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -600,6 +694,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   avatarId?: boolean
   role?: boolean
   spaces?: boolean | Prisma.User$spacesArgs<ExtArgs>
+  memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
   avatar?: boolean | Prisma.User$avatarArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
@@ -636,6 +731,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "password" | "avatarId" | "role", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   spaces?: boolean | Prisma.User$spacesArgs<ExtArgs>
+  memberships?: boolean | Prisma.User$membershipsArgs<ExtArgs>
   avatar?: boolean | Prisma.User$avatarArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -650,6 +746,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     spaces: Prisma.$SpacePayload<ExtArgs>[]
+    memberships: Prisma.$SpaceMemberPayload<ExtArgs>[]
     avatar: Prisma.$AvatarPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1054,6 +1151,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   spaces<T extends Prisma.User$spacesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$spacesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  memberships<T extends Prisma.User$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SpaceMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   avatar<T extends Prisma.User$avatarArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$avatarArgs<ExtArgs>>): Prisma.Prisma__AvatarClient<runtime.Types.Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1512,6 +1610,30 @@ export type User$spacesArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.SpaceScalarFieldEnum | Prisma.SpaceScalarFieldEnum[]
+}
+
+/**
+ * User.memberships
+ */
+export type User$membershipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the SpaceMember
+   */
+  select?: Prisma.SpaceMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the SpaceMember
+   */
+  omit?: Prisma.SpaceMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SpaceMemberInclude<ExtArgs> | null
+  where?: Prisma.SpaceMemberWhereInput
+  orderBy?: Prisma.SpaceMemberOrderByWithRelationInput | Prisma.SpaceMemberOrderByWithRelationInput[]
+  cursor?: Prisma.SpaceMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.SpaceMemberScalarFieldEnum | Prisma.SpaceMemberScalarFieldEnum[]
 }
 
 /**

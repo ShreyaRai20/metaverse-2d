@@ -15,8 +15,9 @@ model User {
   avatarId String?
   role     role
 
-  spaces Space[]
-  avatar Avatar? @relation(fields: [avatarId], references: [id])
+  spaces      Space[]
+  memberships SpaceMember[]
+  avatar      Avatar?       @relation(fields: [avatarId], references: [id])
 }
 
 model Space {
@@ -29,6 +30,18 @@ model Space {
 
   creator  User            @relation(fields: [creatorId], references: [id])
   elements spaceElements[]
+  members  SpaceMember[]
+}
+
+model SpaceMember {
+  id      String @id @default(cuid())
+  spaceId String
+  userId  String
+
+  space Space @relation(fields: [spaceId], references: [id], onDelete: Cascade)
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([spaceId, userId])
 }
 
 model spaceElements {

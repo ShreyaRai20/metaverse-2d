@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   Space: 'Space',
+  SpaceMember: 'SpaceMember',
   spaceElements: 'spaceElements',
   Element: 'Element',
   Map: 'Map',
@@ -98,6 +99,15 @@ export const SpaceScalarFieldEnum = {
 } as const
 
 export type SpaceScalarFieldEnum = (typeof SpaceScalarFieldEnum)[keyof typeof SpaceScalarFieldEnum]
+
+
+export const SpaceMemberScalarFieldEnum = {
+  id: 'id',
+  spaceId: 'spaceId',
+  userId: 'userId'
+} as const
+
+export type SpaceMemberScalarFieldEnum = (typeof SpaceMemberScalarFieldEnum)[keyof typeof SpaceMemberScalarFieldEnum]
 
 
 export const SpaceElementsScalarFieldEnum = {

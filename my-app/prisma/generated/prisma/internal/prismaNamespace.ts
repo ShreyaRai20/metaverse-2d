@@ -399,6 +399,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   Space: 'Space',
+  SpaceMember: 'SpaceMember',
   spaceElements: 'spaceElements',
   Element: 'Element',
   Map: 'Map',
@@ -419,7 +420,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "space" | "spaceElements" | "element" | "map" | "mapElements" | "avatar"
+    modelProps: "user" | "space" | "spaceMember" | "spaceElements" | "element" | "map" | "mapElements" | "avatar"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -568,6 +569,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.SpaceCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.SpaceCountAggregateOutputType> | number
+        }
+      }
+    }
+    SpaceMember: {
+      payload: Prisma.$SpaceMemberPayload<ExtArgs>
+      fields: Prisma.SpaceMemberFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.SpaceMemberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.SpaceMemberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload>
+        }
+        findFirst: {
+          args: Prisma.SpaceMemberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.SpaceMemberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload>
+        }
+        findMany: {
+          args: Prisma.SpaceMemberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload>[]
+        }
+        create: {
+          args: Prisma.SpaceMemberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload>
+        }
+        createMany: {
+          args: Prisma.SpaceMemberCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.SpaceMemberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload>[]
+        }
+        delete: {
+          args: Prisma.SpaceMemberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload>
+        }
+        update: {
+          args: Prisma.SpaceMemberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload>
+        }
+        deleteMany: {
+          args: Prisma.SpaceMemberDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.SpaceMemberUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.SpaceMemberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload>[]
+        }
+        upsert: {
+          args: Prisma.SpaceMemberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SpaceMemberPayload>
+        }
+        aggregate: {
+          args: Prisma.SpaceMemberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSpaceMember>
+        }
+        groupBy: {
+          args: Prisma.SpaceMemberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SpaceMemberGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.SpaceMemberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SpaceMemberCountAggregateOutputType> | number
         }
       }
     }
@@ -1004,6 +1079,15 @@ export const SpaceScalarFieldEnum = {
 export type SpaceScalarFieldEnum = (typeof SpaceScalarFieldEnum)[keyof typeof SpaceScalarFieldEnum]
 
 
+export const SpaceMemberScalarFieldEnum = {
+  id: 'id',
+  spaceId: 'spaceId',
+  userId: 'userId'
+} as const
+
+export type SpaceMemberScalarFieldEnum = (typeof SpaceMemberScalarFieldEnum)[keyof typeof SpaceMemberScalarFieldEnum]
+
+
 export const SpaceElementsScalarFieldEnum = {
   id: 'id',
   elementId: 'elementId',
@@ -1302,6 +1386,7 @@ export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaC
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   space?: Prisma.SpaceOmit
+  spaceMember?: Prisma.SpaceMemberOmit
   spaceElements?: Prisma.spaceElementsOmit
   element?: Prisma.ElementOmit
   map?: Prisma.MapOmit

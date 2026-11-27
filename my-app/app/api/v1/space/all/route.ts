@@ -7,14 +7,21 @@ export async function GET(req: Request) {
     if (!auth) return unauthorized();
 
     const spaces = await prisma.space.findMany({
-        where: { creatorId: auth.userId },
+        where: {
+            OR: [
+                { creatorId: auth.userId },
+                { members: { some: { userId: auth.userId } } },
+            ],
+        },
     });
+
     return NextResponse.json({
         spaces: spaces.map((s) => ({
             id: s.id,
             name: s.name,
             thumbnail: s.thumbnail,
             dimensions: `${s.width}x${s.height}`,
+            isOwner: s.creatorId === auth.userId,
         })),
     });
 }

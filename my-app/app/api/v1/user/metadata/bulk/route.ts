@@ -15,12 +15,14 @@ export async function GET(req: Request) {
 
     const users = await prisma.user.findMany({
         where: { id: { in: ids } },
-        select: { id: true, avatar: true },
+        select: { id: true, username: true, avatar: true },
     });
 
     return NextResponse.json({
         avatars: users.map((u) => ({
             userId: u.id,
+            username: u.username,
+            avatarName: u.avatar?.name ?? null,
             imageUrl: u.avatar?.imageUrl ?? null,
         })),
     });
